@@ -1,0 +1,20 @@
+{
+  "name": "auth0-mock-server",
+  "version": "1.0.0",
+  "description": "Helps us to develop locally with seeded data and keep the flow of auth0.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "debug": "^2.6.6",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^7.4.0",
+    "serve-favicon": "^2.4.2"
+  }
+}
