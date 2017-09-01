@@ -22,16 +22,29 @@ app.options('*', cors())
 
 
 // This route can be used to generate a valid jwt-token.
-app.get('/token/:user', function (req, res) {
-    if (!req.params.user) {
+app.post('/token', function (req, res) {
+    if (!req.body.email || !req.body.password) {
+        debug('Body is invalid!');
+        return res.status(400).send('Email or password is missing!');
+    }
+    var token = jwt.sign({
+        user_id: 'auth0|' + req.body.email,
+    }, 'auth0-mock');
+    debug('Signed token for ' + req.body.email);
+    res.json({ token });
+});
+
+// This route can be used to generate a valid jwt-token.
+app.get('/token/:email', function (req, res) {
+    if (!req.params.email) {
         debug('No user was given!');
         return res.status(400).send('user is missing');
     }
     var token = jwt.sign({
-        user_id: 'auth0|' + req.params.user,
+        user_id: 'auth0|' + req.params.email,
     }, 'auth0-mock');
-    debug('Signed token for ' + req.params.user);
-    res.send(token);
+    debug('Signed token for ' + req.params.email);
+    res.json({ token });
 });
 
 
@@ -44,7 +57,7 @@ app.post('/tokeninfo', function (req, res) {
     }
     var data = jwt.decode(req.body.id_token);
     if (data) {
-        debug('Return token data from ' + data.username);
+        debug('Return token data from ' + data.user_id);
         res.json(data);
     } else {
         debug('The token was invalid and could not be decoded!');
