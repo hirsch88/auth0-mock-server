@@ -1,7 +1,6 @@
 # auth0-mock-server
 
->
-
+> This server helps you to simulate auth0 server locally. So, you are able to use the `/tokeninfo` endpoint to verify your token.
 
 ## Getting Started
 ### Prerequisites
